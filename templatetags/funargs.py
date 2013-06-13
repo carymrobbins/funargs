@@ -24,6 +24,11 @@ def call(f):
     return TemplateFunction.unit(f).call()
 
 
+@register.filter
+def method(obj, attr):
+    return TemplateFunction(getattr(obj, attr))
+
+
 class TemplateFunction(object):
     def __init__(self, f):
         self._function = f

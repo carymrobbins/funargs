@@ -56,3 +56,16 @@ class FunArgsTest(TestCase):
         self.assertEqual(f(**ms), 3)
         result = self.render("{{ f|unpack_args:ms|call }}", f=TF(f), ms=ms)
         self.assertEqual(result, '3')
+
+    def testMethod(self):
+        class Object(object):
+            def __init__(self, x):
+                self.x = x
+
+            def get(self, y):
+                return self.x + y
+
+        obj = Object('foo')
+        self.assertEqual(obj.get('bar'), 'foobar')
+        result = self.render("{{ obj|method:'get'|arg:'bar'|call }}", obj=obj)
+        self.assertEqual(result, 'foobar')
