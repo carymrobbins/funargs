@@ -73,3 +73,6 @@ class TemplateFunction(object):
 
     def call(self):
         return self._function(*self._args, **self._kwargs)
+
+    def __unicode__(self):
+        return unicode(self.call())
